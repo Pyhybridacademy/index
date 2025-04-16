@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Mastery | Learn Without Coding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2D3047',
+                        secondary: '#1B1F3A',
+                        accent: '#FF6B6B',
+                        neutral: '#F9F9F9',
+                        muted: '#E0E0E0',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    boxShadow: {
+                        'elegant': '0 10px 30px -10px rgba(0, 0, 0, 0.1)',
+                        'elegant-lg': '0 20px 40px -15px rgba(0, 0, 0, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow-sm {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                background-image: linear-gradient(to right, #FF6B6B, #FF8E53);
+            }
+            .bg-gradient-primary {
+                background-image: linear-gradient(135deg, #2D3047 0%, #1B1F3A 100%);
+            }
+            .transition-custom {
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+            .hover-lift {
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+            }
+            .nav-link {
+                position: relative;
+            }
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -4px;
+                left: 0;
+                background-color: #FF6B6B;
+                transition: width 0.3s ease;
+            }
+            .nav-link:hover::after {
+                width: 100%;
+            }
+            .nav-link.active::after {
+                width: 100%;
+            }
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 8px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: #c1c1c1;
+                border-radius: 4px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #a1a1a1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans custom-scrollbar">
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="relative w-24 h-24">
+            <div class="absolute inset-0 border-4 border-t-accent border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+            <div class="absolute inset-2 border-4 border-t-transparent border-r-accent border-b-transparent border-l-transparent rounded-full animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-40 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center space-x-2">
+                    <span class="text-2xl font-serif font-bold text-primary">PyHybrid Academy</span>
+                </a>
+                
+                <div class="hidden lg:flex items-center space-x-10">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-primary transition-custom font-medium active">Home</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-primary transition-custom font-medium">About</a>
+                    <a href="#services" class="nav-link text-gray-700 hover:text-primary transition-custom font-medium">Services</a>
+                    <a href="#portfolio" class="nav-link text-gray-700 hover:text-primary transition-custom font-medium">Portfolio</a>
+                    <a href="#testimonials" class="nav-link text-gray-700 hover:text-primary transition-custom font-medium">Testimonials</a>
+                    <a href="#contact" class="ml-6 px-6 py-3 bg-accent text-white rounded-full font-medium hover:bg-accent/90 transition-custom shadow-md hover:shadow-lg">Contact Me</a>
+                </div>
+                
+                <div class="lg:hidden">
+                    <button id="menu-toggle" class="text-gray-700 hover:text-primary focus:outline-none transition-custom">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden">
+            <div class="flex flex-col h-full">
+                <div class="flex justify-between items-center p-6 border-b">
+                    <a href="#" class="flex items-center space-x-2">
+                        <span class="text-2xl font-serif font-bold text-primary">PyHybrid Academy</span>
+                    </a>
+                    <button id="menu-close" class="text-gray-700 hover:text-primary focus:outline-none transition-custom">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-6">
+                    <div class="flex flex-col space-y-6">
+                        <a href="#home" class="text-xl font-medium text-gray-700 hover:text-primary transition-custom py-2 border-b border-gray-100">Home</a>
+                        <a href="#about" class="text-xl font-medium text-gray-700 hover:text-primary transition-custom py-2 border-b border-gray-100">About</a>
+                        <a href="#services" class="text-xl font-medium text-gray-700 hover:text-primary transition-custom py-2 border-b border-gray-100">Services</a>
+                        <a href="#portfolio" class="text-xl font-medium text-gray-700 hover:text-primary transition-custom py-2 border-b border-gray-100">Portfolio</a>
+                        <a href="#testimonials" class="text-xl font-medium text-gray-700 hover:text-primary transition-custom py-2 border-b border-gray-100">Testimonials</a>
+                        <a href="#contact" class="text-xl font-medium text-gray-700 hover:text-primary transition-custom py-2 border-b border-gray-100">Contact</a>
+                    </div>
+                </div>
+                <div class="p-6 border-t">
+                    <div class="flex space-x-4">
+                        <a href="mailto:brandsammie43@gmail.com" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-custom">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://wa.me/2348102272958" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-custom">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="tel:+2347030009237" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-custom">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 md:pt-40 md:pb-32 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-full h-full bg-neutral -z-10"></div>
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -z-10"></div>
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0" data-aos="fade-right" data-aos-duration="1000">
+                    <h5 class="text-accent font-medium mb-4 tracking-wider">WEB DEVELOPMENT SIMPLIFIED</h5>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary leading-tight mb-6">
+                        Build Beautiful Websites <span class="text-gradient">Without Coding</span>
+                    </h1>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed max-w-xl">
+                        Learn my simplified approach to web development that anyone can master, regardless of technical background. Turn your creative vision into reality.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                        <a href="#contact" class="px-8 py-4 bg-accent text-white rounded-full font-medium hover:bg-accent/90 transition-custom shadow-md hover:shadow-lg flex items-center justify-center">
+                            <span>Start Your Journey</span>
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                        <a href="#portfolio" class="px-8 py-4 bg-white text-primary border border-gray-200 rounded-full font-medium hover:border-primary transition-custom shadow-md hover:shadow-lg flex items-center justify-center">
+                            <span>View Student Work</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="relative z-10">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Web Development Made Easy" class="rounded-2xl shadow-elegant-lg">
+                        <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-accent rounded-2xl -z-10"></div>
+                    </div>
+                    <div class="absolute top-1/4 -left-10 w-20 h-20 bg-primary/10 rounded-full"></div>
+                    <div class="absolute bottom-1/3 right-1/4 w-12 h-12 bg-accent/20 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-users text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-medium text-primary">Students</h3>
+                    </div>
+                    <div class="flex items-end space-x-2">
+                        <span class="text-4xl font-bold text-primary counter" data-target="50">0</span>
+                        <span class="text-gray-500 mb-1">trained</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-laptop-code text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-medium text-primary">Websites</h3>
+                    </div>
+                    <div class="flex items-end space-x-2">
+                        <span class="text-4xl font-bold text-primary counter" data-target="90">0</span>
+                        <span class="text-gray-500 mb-1">built</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-chart-line text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-medium text-primary">Success</h3>
+                    </div>
+                    <div class="flex items-end space-x-2">
+                        <span class="text-4xl font-bold text-primary counter" data-target="95">0</span>
+                        <span class="text-gray-500 mb-1">percent</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-calendar-alt text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-medium text-primary">Learning</h3>
+                    </div>
+                    <div class="flex items-end space-x-2">
+                        <span class="text-4xl font-bold text-primary counter" data-target="14">0</span>
+                        <span class="text-gray-500 mb-1">days avg.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32 bg-neutral relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h5 class="text-accent font-medium mb-4 tracking-wider">ABOUT MY APPROACH</h5>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">Simplifying Web Development For Everyone</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-8"></div>
+                <p class="text-gray-600 text-lg">
+                    I've developed a unique teaching method that makes web development accessible to everyone, regardless of technical background or coding experience.
+                </p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 relative" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="relative z-10">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Teaching Session" class="rounded-2xl shadow-elegant-lg">
+                        <div class="absolute -top-6 -left-6 w-24 h-24 bg-primary rounded-2xl -z-10"></div>
+                    </div>
+                    <div class="absolute -bottom-10 right-10 w-40 h-40 bg-primary/5 rounded-full"></div>
+                </div>
+                <div class="lg:w-1/2 lg:pl-16" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <h3 class="text-2xl font-serif font-bold text-primary mb-6">Why My Method Works</h3>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Traditional web development requires learning complex coding languages. My approach breaks down the process into simple, manageable steps that anyone can follow, using visual tools and simplified frameworks.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-eye text-accent"></i>
+                                </div>
+                            </div>
+                            <div class="ml-6">
+                                <h4 class="text-xl font-medium text-primary mb-2">Visual Learning</h4>
+                                <p class="text-gray-600">Learn through demonstrations and visual examples rather than abstract code.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-tools text-accent"></i>
+                                </div>
+                            </div>
+                            <div class="ml-6">
+                                <h4 class="text-xl font-medium text-primary mb-2">Simplified Tools</h4>
+                                <p class="text-gray-600">Use beginner-friendly platforms that handle the technical aspects for you.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-laptop text-accent"></i>
+                                </div>
+                            </div>
+                            <div class="ml-6">
+                                <h4 class="text-xl font-medium text-primary mb-2">Practical Projects</h4>
+                                <p class="text-gray-600">Build real websites from day one, learning as you create actual projects.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 md:py-32 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h5 class="text-accent font-medium mb-4 tracking-wider">WHAT YOU'LL LEARN</h5>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">Comprehensive Web Development Skills</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-8"></div>
+                <p class="text-gray-600 text-lg">
+                    Discover the range of skills you'll master through my simplified teaching approach.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-paint-brush text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium text-primary mb-4">Website Design</h3>
+                    <p class="text-gray-600 mb-6">
+                        Learn to create visually stunning websites with professional layouts, color schemes, and typography.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>User interface principles</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Color theory and typography</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Responsive design techniques</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shopping-cart text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium text-primary mb-4">E-commerce Development</h3>
+                    <p class="text-gray-600 mb-6">
+                        Build online stores with product listings, shopping carts, and secure payment processing.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Product catalog management</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Payment gateway integration</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Order processing systems</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-mobile-alt text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium text-primary mb-4">Responsive Development</h3>
+                    <p class="text-gray-600 mb-6">
+                        Create websites that look and function perfectly on all devices, from desktops to smartphones.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Mobile-first design approach</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Adaptive layouts and grids</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Touch-friendly interfaces</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-search text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium text-primary mb-4">SEO Optimization</h3>
+                    <p class="text-gray-600 mb-6">
+                        Learn techniques to make your websites rank higher in search engines and attract more visitors.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Keyword research and implementation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>On-page optimization techniques</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Performance optimization</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-pen-fancy text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium text-primary mb-4">Content Management</h3>
+                    <p class="text-gray-600 mb-6">
+                        Build websites with easy-to-update content systems that clients can manage themselves.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>User-friendly admin interfaces</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Blog and article management</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Media library organization</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-bar text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium text-primary mb-4">Analytics & Tracking</h3>
+                    <p class="text-gray-600 mb-6">
+                        Implement tools to track website performance and visitor behavior to optimize for better results.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Traffic analysis setup</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Conversion tracking</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            <span>Performance reporting</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 md:py-32 bg-neutral relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h5 class="text-accent font-medium mb-4 tracking-wider">PORTFOLIO SHOWCASE</h5>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">Impressive Results From Beginners</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-8"></div>
+                <p class="text-gray-600 text-lg">
+                    Browse through the professional websites created by students who had no prior coding experience.
+                </p>
+            </div>
+            
+            <!-- Portfolio Filter -->
+            <div class="flex flex-wrap justify-center mb-12" data-aos="fade-up" data-aos-duration="800">
+                <button class="portfolio-filter-btn active m-2 px-6 py-2 bg-white text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-custom shadow-md" data-filter="all">All Projects</button>
+                <button class="portfolio-filter-btn m-2 px-6 py-2 bg-white text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-custom shadow-md" data-filter="ecommerce">E-commerce</button>
+                <button class="portfolio-filter-btn m-2 px-6 py-2 bg-white text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-custom shadow-md" data-filter="business">Business</button>
+                <button class="portfolio-filter-btn m-2 px-6 py-2 bg-white text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-custom shadow-md" data-filter="portfolio">Portfolio</button>
+                <button class="portfolio-filter-btn m-2 px-6 py-2 bg-white text-primary rounded-full font-medium hover:bg-primary hover:text-white transition-custom shadow-md" data-filter="blog">Blog</button>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 portfolio-grid">
+                <!-- Project 1 -->
+                <div class="portfolio-item ecommerce" data-aos="fade-up" data-aos-duration="800">
+                    <div class="bg-white rounded-2xl shadow-elegant overflow-hidden hover-lift">
+                        <div class="relative overflow-hidden group">
+                            <img src="images/screenshot1.jpg" alt="E-commerce Website" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-primary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <span class="inline-block px-4 py-1 bg-accent text-white rounded-full text-sm font-medium mb-4">E-commerce</span>
+                                    <h3 class="text-xl font-medium text-white mb-2">Tools Marketpalce</h3>
+                                    <p class="text-white/80">Created by Sarah after just 3 weeks</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-medium text-primary mb-2">Tools Marketpalce </h3>
+                            <p class="text-gray-600 mb-4">
+                                Features product listings, shopping cart, and payment integration.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500"><i class="fas fa-calendar-alt mr-1"></i> 3 weeks to build</span>
+                                <span class="text-sm text-accent"><i class="fas fa-star mr-1"></i> Beginner level</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="portfolio-item business" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="bg-white rounded-2xl shadow-elegant overflow-hidden hover-lift">
+                        <div class="relative overflow-hidden group">
+                            <img src="images/screenshot2.jpg" alt="Restaurant Website" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-primary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <span class="inline-block px-4 py-1 bg-accent text-white rounded-full text-sm font-medium mb-4">Tools</span>
+                                    <h3 class="text-xl font-medium text-white mb-2">Bg Remover Website</h3>
+                                    <p class="text-white/80">Built by Michael with zero tech experience</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-medium text-primary mb-2">Bg Remover Website</h3>
+                            <p class="text-gray-600 mb-4">
+                                Includes other tools like logo makers and file converter.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500"><i class="fas fa-calendar-alt mr-1"></i> 2 weeks to build</span>
+                                <span class="text-sm text-accent"><i class="fas fa-star mr-1"></i> Beginner level</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="portfolio-item business" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="bg-white rounded-2xl shadow-elegant overflow-hidden hover-lift">
+                        <div class="relative overflow-hidden group">
+                            <img src="images/screenshot6.jpg">
+                            <div class="absolute inset-0 bg-primary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <span class="inline-block px-4 py-1 bg-accent text-white rounded-full text-sm font-medium mb-4">Business</span>
+                                    <h3 class="text-xl font-medium text-white mb-2">Consulting Business Site</h3>
+                                    <p class="text-white/80">Developed by Jennifer who now runs her own business</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-medium text-primary mb-2">Consulting Business Site</h3>
+                            <p class="text-gray-600 mb-4">
+                                Features service listings and client portal.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500"><i class="fas fa-calendar-alt mr-1"></i> 4 weeks to build</span>
+                                <span class="text-sm text-accent"><i class="fas fa-star mr-1"></i> Intermediate level</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="portfolio-item blog" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <div class="bg-white rounded-2xl shadow-elegant overflow-hidden hover-lift">
+                        <div class="relative overflow-hidden group">
+                            <img src="images/screenshot4.jpg" alt="Travel Blog" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-primary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <span class="inline-block px-4 py-1 bg-accent text-white rounded-full text-sm font-medium mb-4">Blog</span>
+                                    <h3 class="text-xl font-medium text-white mb-2">Blog Website</h3>
+                                    <p class="text-white/80">Created by David who now earns through affiliate marketing</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-medium text-primary mb-2">Blog Website</h3>
+                            <p class="text-gray-600 mb-4">
+                                Features content management and newsletter signup.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500"><i class="fas fa-calendar-alt mr-1"></i> 3 weeks to build</span>
+                                <span class="text-sm text-accent"><i class="fas fa-star mr-1"></i> Beginner level</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="portfolio-item portfolio" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                    <div class="bg-white rounded-2xl shadow-elegant overflow-hidden hover-lift">
+                        <div class="relative overflow-hidden group">
+                            <img src="images/screenshot3.jpg">
+                            <div class="absolute inset-0 bg-primary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <span class="inline-block px-4 py-1 bg-accent text-white rounded-full text-sm font-medium mb-4">Portfolio</span>
+                                    <h3 class="text-xl font-medium text-white mb-2">Portfolio</h3>
+                                    <p class="text-white/80">Built by Emma who secured 5 clients within a month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-medium text-primary mb-2">Portfolio</h3>
+                            <p class="text-gray-600 mb-4">
+                                Features gallery and booking system.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500"><i class="fas fa-calendar-alt mr-1"></i> 2 weeks to build</span>
+                                <span class="text-sm text-accent"><i class="fas fa-star mr-1"></i> Beginner level</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="portfolio-item business" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                    <div class="bg-white rounded-2xl shadow-elegant overflow-hidden hover-lift">
+                        <div class="relative overflow-hidden group">
+                            <img src="images/screenshot8.jpg" alt="Fitness Website" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-primary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <span class="inline-block px-4 py-1 bg-accent text-white rounded-full text-sm font-medium mb-4">Business</span>
+                                    <h3 class="text-xl font-medium text-white mb-2">Legit Trading Site</h3>
+                                    <p class="text-white/80">Developed by Carlos who doubled his client base</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-medium text-primary mb-2">Legit Trading Site</h3>
+                            <p class="text-gray-600 mb-4">
+                                Features investment calcultor, Ai Trading and more...
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500"><i class="fas fa-calendar-alt mr-1"></i> 4 weeks to build</span>
+                                <span class="text-sm text-accent"><i class="fas fa-star mr-1"></i> Intermediate level</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 md:py-32 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h5 class="text-accent font-medium mb-4 tracking-wider">STUDENT SUCCESS STORIES</h5>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">What My Students Say</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-8"></div>
+                <p class="text-gray-600 text-lg">
+                    Hear from students who transformed their careers with my no-code web development training.
+                </p>
+            </div>
+            
+            <div class="testimonial-slider relative max-w-5xl mx-auto" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <div class="overflow-hidden">
+                    <div class="testimonials-track flex transition-transform duration-500" id="testimonials-track">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white p-8 rounded-2xl shadow-elegant h-full">
+                                <div class="mb-6">
+                                    <div class="flex text-accent">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 italic mb-8">
+                                    "I had zero technical background before taking this course. Now I run my own e-commerce website and have even started helping friends build their sites. The teaching method made everything so simple to understand!"
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="mr-4">
+                                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson" class="w-14 h-14 rounded-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-medium text-primary">Sarah Johnson</h4>
+                                        <p class="text-gray-500">Fashion Boutique Owner</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white p-8 rounded-2xl shadow-elegant h-full">
+                                <div class="mb-6">
+                                    <div class="flex text-accent">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 italic mb-8">
+                                    "I was skeptical that I could build a website without learning code, but this course proved me wrong. My restaurant website now brings in 30% more reservations, and I can update it myself!"
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="mr-4">
+                                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael Chen" class="w-14 h-14 rounded-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-medium text-primary">Michael Chen</h4>
+                                        <p class="text-gray-500">Restaurant Owner</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white p-8 rounded-2xl shadow-elegant h-full">
+                                <div class="mb-6">
+                                    <div class="flex text-accent">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 italic mb-8">
+                                    "This course completely changed my career trajectory. I now run my own web development agency helping small businesses, and I'm making triple what I earned at my corporate job. The step-by-step approach made learning enjoyable!"
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="mr-4">
+                                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jennifer Adams" class="w-14 h-14 rounded-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-medium text-primary">Jennifer Adams</h4>
+                                        <p class="text-gray-500">Business Consultant</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 4 -->
+                        <div class="testimonial-slide w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                            <div class="bg-white p-8 rounded-2xl shadow-elegant h-full">
+                                <div class="mb-6">
+                                    <div class="flex text-accent">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 italic mb-8">
+                                    "I was afraid technology wasn't for me, but this course proved me wrong. I built my travel blog in just weeks and now earn a full-time income from it. The teaching style made complex concepts incredibly simple!"
+                                </p>
+                                <div class="flex items-center">
+                                    <div class="mr-4">
+                                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="David Wilson" class="w-14 h-14 rounded-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-medium text-primary">David Wilson</h4>
+                                        <p class="text-gray-500">Travel Blogger</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slider Controls -->
+                <button id="prev-testimonial" class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white p-4 rounded-full shadow-elegant text-primary hover:text-accent focus:outline-none transition-custom">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button id="next-testimonial" class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white p-4 rounded-full shadow-elegant text-primary hover:text-accent focus:outline-none transition-custom">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+                
+                <!-- Dots -->
+                <div class="flex justify-center mt-8">
+                    <div class="testimonial-dots flex space-x-2">
+                        <button class="w-3 h-3 rounded-full bg-accent" data-index="0"></button>
+                        <button class="w-3 h-3 rounded-full bg-gray-300" data-index="1"></button>
+                        <button class="w-3 h-3 rounded-full bg-gray-300" data-index="2"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 md:py-32 bg-neutral relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h5 class="text-accent font-medium mb-4 tracking-wider">FREQUENTLY ASKED QUESTIONS</h5>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">Common Questions</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-8"></div>
+                <p class="text-gray-600 text-lg">
+                    Get answers to common questions about my web development teaching approach.
+                </p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <div class="space-y-6">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item bg-white rounded-2xl shadow-elegant overflow-hidden">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-lg font-medium text-primary">Do I really need zero coding experience?</span>
+                            <svg class="w-6 h-6 text-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">
+                                My teaching method is specifically designed for people with no technical background. I've simplified the web development process to eliminate the need for coding knowledge. You'll learn to build professional websites using visual tools and simplified frameworks.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item bg-white rounded-2xl shadow-elegant overflow-hidden">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-lg font-medium text-primary">How long until I can build my first website?</span>
+                            <svg class="w-6 h-6 text-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">
+                                Most students build their first simple website within the first week of training. By the end of two weeks, you'll have the skills to create professional-looking websites with multiple pages and features. The learning curve is intentionally gentle, allowing you to see results quickly.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item bg-white rounded-2xl shadow-elegant overflow-hidden">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-lg font-medium text-primary">Can I really earn money with these skills?</span>
+                            <svg class="w-6 h-6 text-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">
+                                Yes! Many of my students start earning by building websites for small businesses, friends, and family within a month of completing the training. The demand for web development is high, and my course includes guidance on how to find clients and price your services. Some students have even launched successful web design agencies.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item bg-white rounded-2xl shadow-elegant overflow-hidden">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-lg font-medium text-primary">What kind of websites can I build with this method?</span>
+                            <svg class="w-6 h-6 text-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">
+                                You'll be able to build a wide variety of websites, including business sites, portfolios, blogs, e-commerce stores, restaurant sites with online ordering, membership sites, and more. The techniques I teach are versatile and can be applied to virtually any type of website a small to medium-sized business might need.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 5 -->
+                    <div class="faq-item bg-white rounded-2xl shadow-elegant overflow-hidden">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-lg font-medium text-primary">How is your teaching different from other courses?</span>
+                            <svg class="w-6 h-6 text-accent transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-answer p-6 pt-0 hidden">
+                            <p class="text-gray-600">
+                                My teaching method focuses on practical, hands-on learning rather than theory. I've broken down web development into simple, manageable steps that anyone can follow. I also provide personalized support throughout your learning journey, ensuring you never feel stuck. The emphasis is on building real, functional websites from day one.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+<section id="pricing" class="py-20 md:py-32 bg-white relative overflow-hidden">
+    <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-duration="800">
+            <h5 class="text-accent font-medium mb-4 tracking-wider">INVEST IN YOUR FUTURE</h5>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">Mentorship Pricing</h2>
+            <div class="w-20 h-1 bg-accent mx-auto mb-8"></div>
+            <p class="text-gray-600 text-lg">
+                Choose the mentorship plan that fits your goals and budget. All plans include personalized guidance.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- 3 Months Plan -->
+            <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift border-2 border-muted hover:border-accent transition-custom" data-aos="fade-up" data-aos-duration="800">
+                <div class="text-center mb-8">
+                    <h3 class="text-xl font-medium text-primary mb-2">3 Months Mentorship</h3>
+                    <div class="flex justify-center items-baseline">
+                        <span class="text-4xl font-bold text-primary">₦200,000</span>
+                    </div>
+                    <p class="text-gray-500 mt-2">Perfect for focused learning</p>
+                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>12 weeks of personalized guidance</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Weekly 1-on-1 sessions</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Access to all course materials</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Email support during mentorship</span>
+                    </li>
+                </ul>
+                <a href="https://wa.me/2348102272958" class="block w-full px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-custom text-center">
+                    Enroll Now
+                </a>
+            </div>
+            
+            <!-- 6 Months Plan (Featured) -->
+            <div class="bg-white p-8 rounded-2xl shadow-elegant-lg hover-lift border-2 border-accent relative" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <div class="absolute top-0 right-0 bg-accent text-white px-4 py-1 rounded-bl-lg rounded-tr-lg text-sm font-medium">
+                    Most Popular
+                </div>
+                <div class="text-center mb-8">
+                    <h3 class="text-xl font-medium text-primary mb-2">6 Months Mentorship</h3>
+                    <div class="flex justify-center items-baseline">
+                        <span class="text-4xl font-bold text-primary">₦300,000</span>
+                    </div>
+                    <p class="text-gray-500 mt-2">Best value for comprehensive learning</p>
+                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>24 weeks of personalized guidance</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Bi-weekly 1-on-1 sessions</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Access to all course materials + updates</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Priority email & WhatsApp support</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Portfolio review sessions</span>
+                    </li>
+                </ul>
+                <a href="https://wa.me/2348102272958" class="block w-full px-6 py-3 bg-accent text-white rounded-full font-medium hover:bg-accent/90 transition-custom text-center">
+                    Enroll Now
+                </a>
+            </div>
+            
+            <!-- Lifetime Plan -->
+            <div class="bg-white p-8 rounded-2xl shadow-elegant hover-lift border-2 border-muted hover:border-accent transition-custom" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <div class="text-center mb-8">
+                    <h3 class="text-xl font-medium text-primary mb-2">Lifetime Mentorship</h3>
+                    <div class="flex justify-center items-baseline">
+                        <span class="text-4xl font-bold text-primary">₦500,000</span>
+                    </div>
+                    <p class="text-gray-500 mt-2">For serious long-term growth</p>
+                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Unlimited mentorship access</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Monthly 1-on-1 sessions forever</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>All current & future course materials</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>24/7 priority support</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Business coaching included</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-accent mr-2"></i>
+                        <span>Client referral program</span>
+                    </li>
+                </ul>
+                <a href="https://wa.me/2348102272958" class="block w-full px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-custom text-center">
+                    Enroll Now
+                </a>
+            </div>
+        </div>
+        
+        <div class="max-w-3xl mx-auto mt-12 text-center" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+            <p class="text-gray-600 mb-6">
+                Not sure which plan is right for you? Contact me for a free consultation to discuss your goals.
+            </p>
+            <a href="#contact" class="inline-block px-8 py-3 bg-accent text-white rounded-full font-medium hover:bg-accent/90 transition-custom shadow-md hover:shadow-lg">
+                <i class="fas fa-comments mr-2"></i> Get Free Consultation
+            </a>
+        </div>
+    </div>
+</section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 md:py-32 bg-gradient-primary text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent"></div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h5 class="text-accent font-medium mb-4 tracking-wider">GET IN TOUCH</h5>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-shadow-sm">Ready to Build Websites Without Coding?</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-8"></div>
+                <p class="text-xl mb-10 text-white/90">
+                    Take the first step toward mastering web development the easy way. Contact me now to get started!
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Email -->
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl hover:bg-white/20 transition-custom" data-aos="fade-up" data-aos-duration="800">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-envelope text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium text-white text-center mb-4">Email Me</h3>
+                    <p class="text-white/80 text-center mb-6">Send me a message anytime</p>
+                    <a href="mailto:brandsammie43@gmail.com" class="text-white font-medium hover:text-accent transition-custom flex items-center justify-center">
+                        <span>brandsammie43@gmail.com</span>
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- WhatsApp -->
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl hover:bg-white/20 transition-custom" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fab fa-whatsapp text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium text-white text-center mb-4">WhatsApp</h3>
+                    <p class="text-white/80 text-center mb-6">Chat with me directly</p>
+                    <a href="https://wa.me/2348102272958" class="text-white font-medium hover:text-accent transition-custom flex items-center justify-center">
+                        <span>+234 810 227 2958</span>
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Phone -->
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl hover:bg-white/20 transition-custom" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-phone-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium text-white text-center mb-4">Call Me</h3>
+                    <p class="text-white/80 text-center mb-6">Let's talk directly</p>
+                    <a href="tel:+2347030009237" class="text-white font-medium hover:text-accent transition-custom flex items-center justify-center">
+                        <span>+234 703 000 9237</span>
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                <a href="mailto:brandsammie43@gmail.com" class="px-8 py-4 bg-white text-primary rounded-full font-medium hover:bg-gray-100 transition-custom shadow-lg flex items-center justify-center">
+                    <i class="fas fa-envelope mr-2"></i> Email Me Now
+                </a>
+                <a href="https://wa.me/2348102272958" class="px-8 py-4 bg-[#25D366] hover:bg-[#20BD5C] text-white rounded-full font-medium transition-custom shadow-lg flex items-center justify-center">
+                    <i class="fab fa-whatsapp mr-2"></i> WhatsApp Me
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0">
+                    <a href="#" class="flex items-center space-x-2">
+                        <span class="text-2xl font-serif font-bold">PyHybrid Academy</span>
+                    </a>
+                    <p class="text-white/70 mt-2">Building websites without coding.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="mailto:brandsammie43@gmail.com" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-custom">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://wa.me/2348102272958" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-custom">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="tel:+2347030009237" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-custom">
+                        <i class="fas fa-phone-alt"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-8 pt-8 text-center">
+                <p class="text-white/70">&copy; 2023 PyHybrid Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-accent hover:bg-accent/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-110 opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            disable: 'mobile'
+        });
+        
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            setTimeout(function() {
+                preloader.style.opacity = '0';
+                setTimeout(function() {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+        
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white', 'shadow-md');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-3');
+            } else {
+                navbar.classList.remove('bg-white', 'shadow-md');
+                navbar.classList.remove('py-3');
+                navbar.classList.add('py-4');
+            }
+        });
+        
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        menuClose.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Active Navigation Link
+        const sections = document.querySelectorAll('section[id]');
+        
+        function highlightNavLink() {
+            const scrollY = window.pageYOffset;
+            
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', highlightNavLink);
+        
+        // Portfolio Filter
+        const filterButtons = document.querySelectorAll('.portfolio-filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active', 'bg-primary', 'text-white'));
+                
+                // Add active class to clicked button
+                button.classList.add('active', 'bg-primary', 'text-white');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Testimonial Slider
+        const track = document.getElementById('testimonials-track');
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const prevButton = document.getElementById('prev-testimonial');
+        const nextButton = document.getElementById('next-testimonial');
+        const dots = document.querySelectorAll('.testimonial-dots button');
+        
+        let currentIndex = 0;
+        const slidesToShow = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+        const totalGroups = Math.ceil(slides.length / slidesToShow);
+        
+        function updateSlider() {
+            const slideWidth = 100 / slidesToShow;
+            track.style.transform = `translateX(-${currentIndex * slideWidth * slidesToShow}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                if (index < totalGroups) {
+                    dot.classList.toggle('bg-accent', index === currentIndex);
+                    dot.classList.toggle('bg-gray-300', index !== currentIndex);
+                }
+            });
+        }
+        
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalGroups) % totalGroups;
+            updateSlider();
+        });
+        
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalGroups;
+            updateSlider();
+        });
+        
+        dots.forEach((dot, index) => {
+            if (index < totalGroups) {
+                dot.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateSlider();
+                });
+            } else {
+                dot.style.display = 'none';
+            }
+        });
+        
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('svg');
+                
+                // Toggle current FAQ
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('rotate-45');
+                
+                // Close other FAQs
+                faqQuestions.forEach(q => {
+                    if (q !== question) {
+                        q.nextElementSibling.classList.add('hidden');
+                        q.querySelector('svg').classList.remove('rotate-45');
+                    }
+                });
+            });
+        });
+        
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const counterSpeed = 200; // Lower is faster
+        
+        function animateCounters() {
+            counters.forEach(counter => {
+                const target = +counter.dataset.target;
+                const count = +counter.innerText;
+                const increment = target / counterSpeed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+        
+        // Intersection Observer for counters
+        const statsSection = document.querySelector('.counter').closest('section');
+        
+        const counterObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                animateCounters();
+                counterObserver.unobserve(statsSection);
+            }
+        }, { threshold: 0.5 });
+        
+        counterObserver.observe(statsSection);
+        
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Initialize slider
+        updateSlider();
+    </script>
+</body>
+</html>
+
